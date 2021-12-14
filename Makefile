@@ -19,6 +19,7 @@ clean:
 
 verify:
 	go mod verify
+	go mod tidy
 
 build:
 	go build -o $(EXE) cmd/traefik-config-validator/main.go
