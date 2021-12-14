@@ -12,10 +12,6 @@ jobs:
     name: Build docker image
     runs-on: ubuntu-latest
     steps:
-    - name: Is release published?
-      if: github.event.action != 'published'
-      run: exit 78
-
     - uses: actions/checkout@master
 
     - name: Build docker image
@@ -45,20 +41,20 @@ jobs:
     - name: Publish docker image
       run: docker push ghcr.io/${{ github.repository_owner }}/traefik-config-validator:${{ github.event.release.tag_name }}
 
-  goreleaser:
-    runs-on: ubuntu-latest
-    name: goreleaser
-    steps:
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: 1.17
-      id: go
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v1
-    - name: goreleaser
-      uses: goreleaser/goreleaser-action@v2
-      with:
-        args: release
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  # goreleaser:
+  #   runs-on: ubuntu-latest
+  #   name: goreleaser
+  #   steps:
+  #   - name: Set up Go
+  #     uses: actions/setup-go@v2
+  #     with:
+  #       go-version: 1.17
+  #     id: go
+  #   - name: Check out code into the Go module directory
+  #     uses: actions/checkout@v1
+  #   - name: goreleaser
+  #     uses: goreleaser/goreleaser-action@v2
+  #     with:
+  #       args: release
+  #     env:
+  #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

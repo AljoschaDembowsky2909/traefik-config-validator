@@ -1,5 +1,3 @@
-export SHELL := /bin/bash
-
 GO := go
 
 VERSION ?= SNAPSHOT
