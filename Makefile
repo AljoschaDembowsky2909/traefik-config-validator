@@ -21,7 +21,7 @@ verify:
 	$(GO) mod verify
 
 build:
-	goreleaser build --snapshot --rm-dist
+	$(GO) build -o $(EXE) cmd/traefik-config-validator/main.go
 
 test:
 	$(GO) test -v -race -count=1 ./...

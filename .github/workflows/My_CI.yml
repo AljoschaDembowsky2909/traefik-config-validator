@@ -24,10 +24,10 @@ jobs:
       run: go mod download
 
     - name: Build
-      run: make build
+      run: go build -o traefik-config-validator cmd/traefik-config-validator/main.go
 
     - name: Test
-      run: make test
+      run: go test -v -race -count=1 ./...
 
   golangci:
     name: Lint
