@@ -1,0 +1,41 @@
+name: My_Release
+
+on: release
+
+jobs:
+  build-and-publish:
+    name: Build docker image
+    runs-on: ubuntu-latest
+    steps:
+    - name: Is release published?
+      if: github.event.action != 'published'
+      run: exit 78
+
+    - uses: actions/checkout@master
+
+    - name: Build docker image
+      run: docker build -t traefik-config-validator --build-arg VERSION=${{ github.event.release.tag_name }} .
+
+    - name: Log into docker
+      env:
+        DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+        DOCKER_REGISTRY_URL: ghcr.io
+        DOCKER_USERNAME: ${{ github.actor }}
+      run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_REGISTRY_URL
+
+    - name: Release if tagged
+      if: "!startswith(github.ref, 'refs/tags/v')"
+      run: exit 78
+
+    - name: Tag docker image
+      run: docker tag traefik-config-validator ghcr.io/${{ github.repository_owner }}/traefik-config-validator:${{ github.event.release.tag_name }}
+
+    - name: Build && release binaries
+      uses: docker://goreleaser/goreleaser:v0.179.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        args: release
+
+    - name: Publish docker image
+      run: docker push ghcr.io/${{ github.repository_owner }}/traefik-config-validator:${{ github.event.release.tag_name }}
