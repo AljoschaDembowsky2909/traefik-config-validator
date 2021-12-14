@@ -1,4 +1,4 @@
-GO := GO111MODULE=on go
+GO := go
 
 VERSION ?= SNAPSHOT
 
@@ -21,7 +21,7 @@ verify:
 	$(GO) mod verify
 
 build:
-	$(GO) build -o $(EXE) cmd/traefik-config-validator/main.go
+	goreleaser build --snapshot --rm-dist
 
 test:
 	$(GO) test -v -race -count=1 ./...
