@@ -40,4 +40,7 @@ To make a release, the process is as follows:
 
 For illustration purpose, `v1.2.3` will be the target release version, and the git remote will be `origin`.
 
-1. 
+1. Edit [CHANGELOG.md](CHANGELOG.md)
+2. `git tag -a v1.2.3 -m "Release v1.2.3"`
+3. `git push origin main v1.2.3`
+4. 

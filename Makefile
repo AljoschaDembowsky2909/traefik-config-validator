@@ -39,7 +39,7 @@ docker-image:
 	docker tag $(IMAGE_FULLNAME):$(VERSION) $(IMAGE_REGISTRY)/$(IMAGE_FULLNAME):$(VERSION)
 
 release:
-	goreleaser build --rm-dist 
+	goreleaser release --rm-dist 
 
 release/snapshot:
-	goreleaser build --rm-dist --snapshot
+	goreleaser release --rm-dist --snapshot

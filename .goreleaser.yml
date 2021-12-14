@@ -6,6 +6,9 @@ builds:
       - arm64
     env:
       - CGO_ENABLED=0
+before:
+  hooks:
+    - go mod download
 archives:
   - replacements:
       darwin: Darwin
@@ -14,6 +17,9 @@ archives:
     files:
       - none*
 changelog:
-  skip: true
+  sort: asc
+  filters:
+    exclude:
+    - Merge pull request
 checksum:
   name_template: 'checksums.txt'
