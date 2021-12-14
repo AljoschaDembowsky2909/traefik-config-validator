@@ -1,4 +1,4 @@
-GO := go
+GO := GO111MODULE=on go
 
 VERSION ?= SNAPSHOT
 
