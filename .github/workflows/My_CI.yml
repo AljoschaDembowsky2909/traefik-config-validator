@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  GOPATH: ${{ github.workspace }}
+  GO111MODULE: off
+
 jobs:
   build:
     name: Build
