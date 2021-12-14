@@ -8,33 +8,21 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: build
     runs-on: ubuntu-latest
     steps:
-
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v2
-      
-    - name: Set up Go
-      uses: actions/setup-go@v2
+    - uses: actions/checkout@v2
+    - uses: actions/setup-go@v2
       with:
         go-version: 1.17
-
-    - name: Get dependencies
-      run: go mod download
-
-    - name: Build
-      run: make build
-
-    - name: Test
-      run: make test
+    - run: go mod download
+    - run: make build
+    - run: make test
 
   golangci:
-    name: Lint
+    name: lint
     runs-on: ubuntu-latest
     steps:
-
       - uses: actions/checkout@v2
-
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v2
