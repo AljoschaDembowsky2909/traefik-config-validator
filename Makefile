@@ -1,4 +1,4 @@
-GO := go
+.DEFAULT_GOAL := all
 
 VERSION ?= SNAPSHOT
 
@@ -18,13 +18,13 @@ clean:
 	$(RM) -rf dist
 
 verify:
-	$(GO) mod verify
+	go mod verify
 
 build:
-	$(GO) build -o $(EXE) cmd/traefik-config-validator/main.go
+	go build -o $(EXE) cmd/traefik-config-validator/main.go
 
 test:
-	$(GO) test -v -race -count=1 ./...
+	go test -v -race -count=1 ./...
 
 lint:
 	golangci-lint run -v -c .golangci.yml
